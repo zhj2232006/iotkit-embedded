@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdarg.h>
 
 #include "iot_import.h"
 #include "iot_export.h"
@@ -28,6 +29,10 @@
     #define PRODUCT_KEY             "OvNmiEYRDSY"
     #define DEVICE_NAME             "sh_online_sample_mqtt"
     #define DEVICE_SECRET           "v9mqGzepKEphLhXmAoiaUIR2HZ7XwTky"
+#elif defined(TEST_MQTT_DAILY)
+    #define PRODUCT_KEY             "gsYfsxQJgeD"
+    #define DEVICE_NAME             "DailyEnvDN"
+    #define DEVICE_SECRET           "y1vzFkEgcuXnvkAfm627pwarx4HRNikX"
 #elif defined(MQTT_ID2_AUTH)
     #define PRODUCT_KEY             "micKUvuzOps"
     #define DEVICE_NAME             "00AAAAAABBBBBB4B645F5800"
@@ -44,12 +49,12 @@
 #define TOPIC_GET               "/"PRODUCT_KEY"/"DEVICE_NAME"/get"
 #define TOPIC_DATA              "/"PRODUCT_KEY"/"DEVICE_NAME"/data"
 
-#define MSG_LEN_MAX             (1024)
+#define MQTT_MSGLEN             (1024)
 
-#define EXAMPLE_TRACE(fmt, args...)  \
+#define EXAMPLE_TRACE(fmt, ...)  \
     do { \
         HAL_Printf("%s|%03d :: ", __func__, __LINE__); \
-        HAL_Printf(fmt, ##args); \
+        HAL_Printf(fmt, ##__VA_ARGS__); \
         HAL_Printf("%s", "\r\n"); \
     } while(0)
 
@@ -118,6 +123,10 @@ void event_handle(void *pcontext, void *pclient, iotx_mqtt_event_msg_pt msg)
                           topic_info->payload);
             break;
 
+        case IOTX_MQTT_EVENT_BUFFER_OVERFLOW:
+            EXAMPLE_TRACE("buffer overflow, %s", msg->msg);
+            break;
+
         default:
             EXAMPLE_TRACE("Should NOT arrive here.");
             break;
@@ -151,13 +160,13 @@ int mqtt_client(void)
     char msg_pub[128];
     char *msg_buf = NULL, *msg_readbuf = NULL;
 
-    if (NULL == (msg_buf = (char *)HAL_Malloc(MSG_LEN_MAX))) {
+    if (NULL == (msg_buf = (char *)HAL_Malloc(MQTT_MSGLEN))) {
         EXAMPLE_TRACE("not enough memory");
         rc = -1;
         goto do_exit;
     }
 
-    if (NULL == (msg_readbuf = (char *)HAL_Malloc(MSG_LEN_MAX))) {
+    if (NULL == (msg_readbuf = (char *)HAL_Malloc(MQTT_MSGLEN))) {
         EXAMPLE_TRACE("not enough memory");
         rc = -1;
         goto do_exit;
@@ -184,9 +193,9 @@ int mqtt_client(void)
     mqtt_params.clean_session = 0;
     mqtt_params.keepalive_interval_ms = 60000;
     mqtt_params.pread_buf = msg_readbuf;
-    mqtt_params.read_buf_size = MSG_LEN_MAX;
+    mqtt_params.read_buf_size = MQTT_MSGLEN;
     mqtt_params.pwrite_buf = msg_buf;
-    mqtt_params.write_buf_size = MSG_LEN_MAX;
+    mqtt_params.write_buf_size = MQTT_MSGLEN;
 
     mqtt_params.handle_event.h_fp = event_handle;
     mqtt_params.handle_event.pcontext = NULL;
@@ -292,13 +301,13 @@ int mqtt_client_secure()
     char msg_pub[128];
     char *msg_buf = NULL, *msg_readbuf = NULL;
 
-    if (NULL == (msg_buf = (char *)HAL_Malloc(MSG_LEN_MAX))) {
+    if (NULL == (msg_buf = (char *)HAL_Malloc(MQTT_MSGLEN))) {
         EXAMPLE_TRACE("not enough memory");
         rc = -1;
         goto do_exit;
     }
 
-    if (NULL == (msg_readbuf = (char *)HAL_Malloc(MSG_LEN_MAX))) {
+    if (NULL == (msg_readbuf = (char *)HAL_Malloc(MQTT_MSGLEN))) {
         EXAMPLE_TRACE("not enough memory");
         rc = -1;
         goto do_exit;
@@ -325,9 +334,9 @@ int mqtt_client_secure()
     mqtt_params.clean_session = 0;
     mqtt_params.keepalive_interval_ms = 60000;
     mqtt_params.pread_buf = msg_readbuf;
-    mqtt_params.read_buf_size = MSG_LEN_MAX;
+    mqtt_params.read_buf_size = MQTT_MSGLEN;
     mqtt_params.pwrite_buf = msg_buf;
-    mqtt_params.write_buf_size = MSG_LEN_MAX;
+    mqtt_params.write_buf_size = MQTT_MSGLEN;
 
     mqtt_params.handle_event.h_fp = event_handle;
     mqtt_params.handle_event.pcontext = NULL;
