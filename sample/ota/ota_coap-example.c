@@ -1,23 +1,24 @@
- /*
-  * Copyright (c) 2014-2016 Alibaba Group. All rights reserved.
-  * License-Identifier: Apache-2.0
-  *
-  * Licensed under the Apache License, Version 2.0 (the "License"); you may
-  * not use this file except in compliance with the License.
-  * You may obtain a copy of the License at
-  *
-  *     http://www.apache.org/licenses/LICENSE-2.0
-  *
-  * Unless required by applicable law or agreed to in writing, software
-  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
-  */
+/*
+ * Copyright (c) 2014-2016 Alibaba Group. All rights reserved.
+ * License-Identifier: Apache-2.0
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdarg.h>
 
 #include "iot_import.h"
 #include "iot_export.h"
@@ -38,10 +39,10 @@
 
 //#define IOTX_PRE_NOSEC_SERVER_URI "coap://iot-as-coap.alibaba.net:5683"
 
-#define EXAMPLE_TRACE(fmt, args...)  \
+#define EXAMPLE_TRACE(fmt, ...)  \
     do { \
         HAL_Printf("%s|%03d :: ", __func__, __LINE__); \
-        HAL_Printf(fmt, ##args); \
+        HAL_Printf(fmt, ##__VA_ARGS__); \
         HAL_Printf("%s", "\r\n"); \
     } while(0)
 
@@ -94,7 +95,7 @@ static int fetch_ota(void *h_ota, void *h_coap)
 
         IOT_CoAP_Yield(h_coap);
 
-    }while(!IOT_OTA_IsFetchFinish(h_ota));
+    } while (!IOT_OTA_IsFetchFinish(h_ota));
 
     while (1 == rc) {
         IOT_OTA_Ioctl(h_ota, IOT_OTAG_CHECK_FIRMWARE, &firmware_valid, 4);
@@ -108,7 +109,7 @@ static int fetch_ota(void *h_ota, void *h_coap)
             break;
         }
     }
-    
+
     if (NULL != fp) {
         fclose(fp);
     }
@@ -131,14 +132,14 @@ static int try_fetch_ota(void *h_ota, void *h_coap)
 
 int iotx_set_devinfo(iotx_deviceinfo_t *p_devinfo)
 {
-    if(NULL == p_devinfo){
+    if (NULL == p_devinfo) {
         return IOTX_ERR_INVALID_PARAM;
     }
 
     memset(p_devinfo, 0x00, sizeof(iotx_deviceinfo_t));
     strncpy(p_devinfo->device_id,    IOTX_DEVICE_ID,   IOTX_DEVICE_ID_LEN);
     strncpy(p_devinfo->product_key,  IOTX_PRODUCT_KEY, IOTX_PRODUCT_KEY_LEN);
-    strncpy(p_devinfo->device_secret,IOTX_DEVICE_SECRET, IOTX_DEVICE_SECRET_LEN);
+    strncpy(p_devinfo->device_secret, IOTX_DEVICE_SECRET, IOTX_DEVICE_SECRET_LEN);
     strncpy(p_devinfo->device_name,  IOTX_DEVICE_NAME, IOTX_DEVICE_NAME_LEN);
 
     return IOTX_SUCCESS;
@@ -155,14 +156,14 @@ int main(int argc, char **argv)
 
     IOT_OpenLog("coap-ota");
     IOT_SetLogLevel(IOT_LOG_DEBUG);
-   
+
     iotx_set_devinfo(&deviceinfo);
 
     memset(&config, 0x00, sizeof(iotx_coap_config_t));
     config.p_devinfo = &deviceinfo;
     config.p_url = IOTX_PRE_NOSEC_SERVER_URI;
     h_coap = IOT_CoAP_Init(&config);
-    if(NULL == h_coap){
+    if (NULL == h_coap) {
         rc = -1;
         EXAMPLE_TRACE("initialize CoAP failed");
         return -1;
@@ -181,7 +182,7 @@ int main(int argc, char **argv)
     do {
 
         IOT_CoAP_Yield(h_coap);
-        
+
         IOT_OTA_ReportVersion(h_ota, "iotx_ver_1.0.0");
 
         HAL_SleepMs(2000);
