@@ -29,8 +29,18 @@
 
 #include "iot_import.h"
 
-#define PLATFORM_WINSOCK_LOG    printf
-#define PLATFORM_WINSOCK_PERROR printf
+#define PLATFORM_WINSOCK_LOG(format, ...) \
+    do { \
+        HAL_Printf("[SOCK] %s(%d): "format"\n", __FUNCTION__, __LINE__, ##__VA_ARGS__);\
+        fflush(stdout);\
+    }while(0);
+
+#define PLATFORM_WINSOCK_PERROR(format, ...) \
+    do { \
+        HAL_Printf("[SOCKERR] %s(%d): "format"\n", __FUNCTION__, __LINE__, ##__VA_ARGS__);\
+        fflush(stdout);\
+    }while(0);
+
 
 
 static uint64_t time_left(uint64_t t_end, uint64_t t_now)

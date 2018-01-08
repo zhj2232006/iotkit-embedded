@@ -53,7 +53,7 @@ typedef struct _TLSDataParams {
 
 #define SSL_LOG(format, ...) \
     do { \
-        HAL_Printf("[inf] %s(%d): "format"\n", __FUNCTION__, __LINE__, ##__VA_ARGS__);\
+        HAL_Printf("[SSL] %s(%d): "format"\n", __FUNCTION__, __LINE__, ##__VA_ARGS__);\
         fflush(stdout);\
     }while(0);
 

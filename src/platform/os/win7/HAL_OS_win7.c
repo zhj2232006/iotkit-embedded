@@ -32,8 +32,11 @@
 #include <stdarg.h>
 #include <memory.h>
 
-
-#define PLATFORM_WINOS_PERROR printf
+#define PLATFORM_WINOS_PERROR(format, ...) \
+    do { \
+        HAL_Printf("[OS] %s(%d): "format"\n", __FUNCTION__, __LINE__, ##__VA_ARGS__);\
+        fflush(stdout);\
+    }while(0);
 
 
 void *HAL_MutexCreate(void)
