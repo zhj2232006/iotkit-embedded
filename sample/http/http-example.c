@@ -20,8 +20,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#ifndef _WIN32
 #include <unistd.h>
-
+#endif
 #include "iot_import.h"
 #include "iot_export.h"
 
@@ -90,7 +91,10 @@ int main(int argc, char **argv)
     strncpy(device_info.device_id,  IOTX_DEVICE_ID, IOTX_DEVICE_ID_LEN);
 
     HAL_Printf("[HTTP-Client]: Enter HTTP Client\r\n");
-    while ((opt = getopt(argc, argv, "lh")) != -1) {
+#ifdef _WIN32
+	http_param.keep_alive = 1;
+#else	
+	while ((opt = getopt(argc, argv, "lh")) != -1) {
         switch (opt) {
             case 'l':
                 http_param.keep_alive = 1;
@@ -102,6 +106,7 @@ int main(int argc, char **argv)
                 break;
         }
     }
+#endif
     HAL_Printf("[HTTP-Client]: keep_alive=%d\r\n", http_param.keep_alive);
     http_param.device_info = &device_info;
     http_param.timeout_ms = DEFAULT_TIMEOUT_MS;

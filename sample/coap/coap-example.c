@@ -20,8 +20,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#ifndef _WIN32
 #include <unistd.h>
-
+#endif
 #include "iot_import.h"
 #include "iot_export.h"
 
@@ -88,7 +89,7 @@ static void iotx_post_data_to_server(void *param)
     iotx_coap_context_t *p_ctx = (iotx_coap_context_t *)param;
 
     iotx_set_devinfo(&devinfo);
-    snprintf(path, IOTX_URI_MAX_LEN, "/topic/%s/%s/update/", (char *)devinfo.product_key,
+    HAL_Snprintf(path, IOTX_URI_MAX_LEN, "/topic/%s/%s/update/", (char *)devinfo.product_key,
              (char *)devinfo.device_name);
 
     IOT_CoAP_SendMessage(p_ctx, path, &message);
@@ -107,6 +108,9 @@ int main(int argc, char **argv)
     IOT_SetLogLevel(IOT_LOG_DEBUG);
 
     HAL_Printf("[COAP-Client]: Enter Coap Client\r\n");
+#ifdef _WIN32
+	m_coap_client_running = 1;
+#else
     while ((opt = getopt(argc, argv, "e:s:lh")) != -1) {
         switch (opt) {
             case 's':
@@ -125,6 +129,7 @@ int main(int argc, char **argv)
                 break;
         }
     }
+#endif
 
     memset(&config, 0x00, sizeof(iotx_coap_config_t));
     if (0 == strncmp(env, "pre", strlen("pre"))) {
@@ -136,7 +141,7 @@ int main(int argc, char **argv)
     } else if (0 == strncmp(env, "online", strlen("online"))) {
         if (0 == strncmp(secur, "dtls", strlen("dtls"))) {
             char url[256] = {0};
-            snprintf(url, sizeof(url), IOTX_ONLINE_DTLS_SERVER_URL, IOTX_PRODUCT_KEY);
+            HAL_Snprintf(url, sizeof(url), IOTX_ONLINE_DTLS_SERVER_URL, IOTX_PRODUCT_KEY);
             config.p_url = url;
         } else {
             HAL_Printf("Online environment must access with DTLS\r\n");
