@@ -51,7 +51,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>snprintf=_snprintf;__func__=__FUNCTION__;MQTT_COMM_ENABLED;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>nIOTX_WITHOUT_TLS;__func__=__FUNCTION__;MQTT_COMM_ENABLED;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)\..\src\import\windows\include;$(ProjectDir)\..\src\guider;$(ProjectDir)\..\src\packages\mbedtls-in-iotkit\include;$(ProjectDir)\..\src\import\windows\include\tfs;$(ProjectDir)\..\src\mqtt;$(ProjectDir)\..\src\mqtt\MQTTPacket;$(ProjectDir)\..\src\ota;$(ProjectDir)\..\src\packages\iot-coap-c;$(ProjectDir)\..\src\packages\LITE-log;$(ProjectDir)\..\src\packages\LITE-utils;$(ProjectDir)\..\src\sdk-impl;$(ProjectDir)\..\src\sdk-impl\exports;$(ProjectDir)\..\src\sdk-impl\imports;$(ProjectDir)\..\src\sdk-tests;$(ProjectDir)\..\src\shadow;$(ProjectDir)\..\src\system;$(ProjectDir)\..\src\tfs;$(ProjectDir)\..\src\utils\digest;$(ProjectDir)\..\src\utils\misc</AdditionalIncludeDirectories>
     </ClCompile>
@@ -68,7 +68,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>snprintf=_snprintf;__func__=__FUNCTION__;MQTT_COMM_ENABLED;_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>nIOTX_WITHOUT_TLS;__func__=__FUNCTION__;MQTT_COMM_ENABLED;_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)\..\src\import\windows\include;$(ProjectDir)\..\src\guider;$(ProjectDir)\..\src\packages\mbedtls-in-iotkit\include;$(ProjectDir)\..\src\import\windows\include\tfs;$(ProjectDir)\..\src\mqtt;$(ProjectDir)\..\src\mqtt\MQTTPacket;$(ProjectDir)\..\src\ota;$(ProjectDir)\..\src\packages\iot-coap-c;$(ProjectDir)\..\src\packages\LITE-log;$(ProjectDir)\..\src\packages\LITE-utils;$(ProjectDir)\..\src\sdk-impl;$(ProjectDir)\..\src\sdk-impl\exports;$(ProjectDir)\..\src\sdk-impl\imports;$(ProjectDir)\..\src\sdk-tests;$(ProjectDir)\..\src\shadow;$(ProjectDir)\..\src\system;$(ProjectDir)\..\src\tfs;$(ProjectDir)\..\src\utils\digest;$(ProjectDir)\..\src\utils\misc</AdditionalIncludeDirectories>
     </ClCompile>

@@ -10,14 +10,14 @@
     <Filter Include="sample">
       <UniqueIdentifier>{247f8b4a-0d4f-4efc-8167-ee6e5bfd9f6f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="hal">
-      <UniqueIdentifier>{af24acf8-e444-404e-95f3-33dbea003e49}</UniqueIdentifier>
-    </Filter>
     <Filter Include="packages">
       <UniqueIdentifier>{f49388d5-f4f4-4e02-81d6-ac44d67ec31d}</UniqueIdentifier>
     </Filter>
     <Filter Include="mbedtls">
       <UniqueIdentifier>{4cc0fde5-dc9e-49f5-8cd5-ce3f6bdf655a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="platform">
+      <UniqueIdentifier>{af24acf8-e444-404e-95f3-33dbea003e49}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -82,10 +82,10 @@
       <Filter>sdk_core</Filter>
     </ClCompile>
     <ClCompile Include="..\src\platform\ssl\mbedtls\HAL_DTLS_mbedtls.c">
-      <Filter>hal</Filter>
+      <Filter>platform</Filter>
     </ClCompile>
     <ClCompile Include="..\src\platform\ssl\mbedtls\HAL_TLS_mbedtls.c">
-      <Filter>hal</Filter>
+      <Filter>platform</Filter>
     </ClCompile>
     <ClCompile Include="..\src\packages\LITE-log\lite-log.c">
       <Filter>packages</Filter>
@@ -109,10 +109,10 @@
       <Filter>sdk_core</Filter>
     </ClCompile>
     <ClCompile Include="..\src\platform\os\win7\HAL_OS_win7.c">
-      <Filter>hal</Filter>
+      <Filter>platform</Filter>
     </ClCompile>
     <ClCompile Include="..\src\platform\os\win7\HAL_TCP_win7.c">
-      <Filter>hal</Filter>
+      <Filter>platform</Filter>
     </ClCompile>
     <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\aes.c">
       <Filter>mbedtls</Filter>
@@ -205,7 +205,7 @@
       <Filter>mbedtls</Filter>
     </ClCompile>
     <ClCompile Include="..\src\platform\os\win7\HAL_UDP_win7.c">
-      <Filter>hal</Filter>
+      <Filter>platform</Filter>
     </ClCompile>
     <ClCompile Include="..\src\system\report.c">
       <Filter>sdk_core</Filter>
