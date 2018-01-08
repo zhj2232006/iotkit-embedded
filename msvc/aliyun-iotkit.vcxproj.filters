@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="sdk_core">
+      <UniqueIdentifier>{9a89ff70-a4d2-41eb-b607-40e004000709}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk_api">
+      <UniqueIdentifier>{a73ba56f-dd8f-4997-ae03-fd1171ef38cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sample">
+      <UniqueIdentifier>{247f8b4a-0d4f-4efc-8167-ee6e5bfd9f6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hal">
+      <UniqueIdentifier>{af24acf8-e444-404e-95f3-33dbea003e49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="packages">
+      <UniqueIdentifier>{f49388d5-f4f4-4e02-81d6-ac44d67ec31d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mbedtls">
+      <UniqueIdentifier>{4cc0fde5-dc9e-49f5-8cd5-ce3f6bdf655a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\sample\mqtt\mqtt-example.c">
+      <Filter>sample</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\utils\digest\utils_base64.c">
+      <Filter>sdk_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\utils\digest\utils_hmac.c">
+      <Filter>sdk_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\utils\digest\utils_md5.c">
+      <Filter>sdk_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\utils\digest\utils_sha1.c">
+      <Filter>sdk_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\utils\misc\utils_epoch_time.c">
+      <Filter>sdk_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\utils\misc\utils_httpc.c">
+      <Filter>sdk_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\utils\misc\utils_list.c">
+      <Filter>sdk_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\utils\misc\utils_net.c">
+      <Filter>sdk_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\utils\misc\utils_timer.c">
+      <Filter>sdk_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\guider\guider.c">
+      <Filter>sdk_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\guider\id2_guider.c">
+      <Filter>sdk_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mqtt\mqtt_client.c">
+      <Filter>sdk_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk-impl\sdk-impl.c">
+      <Filter>sdk_api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mqtt\MQTTPacket\MQTTConnectClient.c">
+      <Filter>sdk_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mqtt\MQTTPacket\MQTTDeserializePublish.c">
+      <Filter>sdk_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mqtt\MQTTPacket\MQTTPacket.c">
+      <Filter>sdk_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mqtt\MQTTPacket\MQTTSerializePublish.c">
+      <Filter>sdk_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mqtt\MQTTPacket\MQTTSubscribeClient.c">
+      <Filter>sdk_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mqtt\MQTTPacket\MQTTUnsubscribeClient.c">
+      <Filter>sdk_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\platform\ssl\mbedtls\HAL_DTLS_mbedtls.c">
+      <Filter>hal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\platform\ssl\mbedtls\HAL_TLS_mbedtls.c">
+      <Filter>hal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\LITE-log\lite-log.c">
+      <Filter>packages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\LITE-utils\json_parser.c">
+      <Filter>packages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\LITE-utils\mem_stats.c">
+      <Filter>packages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\LITE-utils\string_utils.c">
+      <Filter>packages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\LITE-utils\json_token.c">
+      <Filter>packages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\system\ca.c">
+      <Filter>sdk_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\system\device.c">
+      <Filter>sdk_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\platform\os\win7\HAL_OS_win7.c">
+      <Filter>hal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\platform\os\win7\HAL_TCP_win7.c">
+      <Filter>hal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\aes.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\asn1parse.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\base64.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\bignum.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\cipher.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\cipher_wrap.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\ctr_drbg.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\debug.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\entropy.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\entropy_poll.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\error.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\md.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\md_wrap.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\net_sockets.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\oid.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\pem.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\pk.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\pk_wrap.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\pkparse.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\platform.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\rsa.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\sha1.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\sha256.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\ssl_ciphersuites.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\ssl_cli.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\ssl_cookie.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\ssl_tls.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\timing.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\x509.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\packages\mbedtls-in-iotkit\library\x509_crt.c">
+      <Filter>mbedtls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\platform\os\win7\HAL_UDP_win7.c">
+      <Filter>hal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\system\report.c">
+      <Filter>sdk_core</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
