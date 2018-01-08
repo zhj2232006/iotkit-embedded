@@ -49,7 +49,8 @@
 #define TOPIC_GET               "/"PRODUCT_KEY"/"DEVICE_NAME"/get"
 #define TOPIC_DATA              "/"PRODUCT_KEY"/"DEVICE_NAME"/data"
 
-#define MQTT_MSGLEN             (1024)
+#define MQTT_MSGLEN             (512)
+#define DEMO_MSG_CNT             (10)
 
 #define EXAMPLE_TRACE(fmt, ...)  \
     do { \
@@ -218,7 +219,7 @@ int mqtt_client(void)
         goto do_exit;
     }
 
-    HAL_SleepMs(1000);
+    HAL_SleepMs(200);
 
     /* Initialize topic information */
     memset(&topic_msg, 0x0, sizeof(iotx_mqtt_topic_info_t));
@@ -236,7 +237,7 @@ int mqtt_client(void)
     do {
         /* Generate topic message */
         cnt++;
-        msg_len = snprintf(msg_pub, sizeof(msg_pub), "{\"attr_name\":\"temperature\", \"attr_value\":\"%d\"}", cnt);
+        msg_len = HAL_Snprintf(msg_pub, sizeof(msg_pub), "{\"attr_name\":\"temperature\", \"attr_value\":\"%d\"}", cnt);
         if (msg_len < 0) {
             EXAMPLE_TRACE("Error occur! Exit program");
             rc = -1;
@@ -262,15 +263,15 @@ int mqtt_client(void)
 #endif
 
         /* handle the MQTT packet received from TCP or SSL connection */
-        IOT_MQTT_Yield(pclient, 200);
+        IOT_MQTT_Yield(pclient, 1000);
 
         /* infinite loop if running with 'loop' argument */
         if (user_argc >= 2 && !strcmp("loop", user_argv[1])) {
-            HAL_SleepMs(2000);
+            HAL_SleepMs(200);
             cnt = 0;
         }
 
-    } while (cnt < 1);
+    } while (cnt < DEMO_MSG_CNT);
 
     IOT_MQTT_Unsubscribe(pclient, TOPIC_DATA);
 
@@ -376,7 +377,7 @@ int mqtt_client_secure()
     do {
         /* Generate topic message */
         cnt++;
-        msg_len = snprintf(msg_pub, sizeof(msg_pub), "{\"attr_name\":\"temperature\", \"attr_value\":\"%d\"}", cnt);
+        msg_len = HAL_Snprintf(msg_pub, sizeof(msg_pub), "{\"attr_name\":\"temperature\", \"attr_value\":\"%d\"}", cnt);
         if (msg_len < 0) {
             EXAMPLE_TRACE("Error occur! Exit program");
             rc = -1;

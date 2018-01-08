@@ -132,18 +132,18 @@ void mqtt_rrpc_msg_arrive(void *pcontext, void *pclient, iotx_mqtt_event_msg_pt 
                ptopic_info->payload_len);
     HAL_Printf("----\n");
 
-    if (snprintf(msg_id,
+    if (HAL_Snprintf(msg_id,
                  ptopic_info->topic_len - strlen(TOPIC_RRPC_REQ) + 1,
                  "%s",
                  ptopic_info->ptopic + strlen(TOPIC_RRPC_REQ))
         > sizeof(msg_id)) {
-        HAL_Printf("snprintf error!\n");
+        HAL_Printf("HAL_Snprintf error!\n");
         return;
     }
 
     HAL_Printf("response msg_id = %s\n", msg_id);
-    if (snprintf(topic, sizeof(topic), "%s%s", TOPIC_RRPC_RSP, msg_id) > sizeof(topic)) {
-        HAL_Printf("snprintf error!\n");
+    if (HAL_Snprintf(topic, sizeof(topic), "%s%s", TOPIC_RRPC_RSP, msg_id) > sizeof(topic)) {
+        HAL_Printf("HAL_Snprintf error!\n");
         return;
     }
     HAL_Printf("response topic = %s\n", topic);
