@@ -28,3 +28,8 @@ src/utils/LITE-utils
 vs_build/
 .vs/
 html/
+*.obj
+/msvc/Debug
+*.sdf
+*.suo
+*.opensdf
