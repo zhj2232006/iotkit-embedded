@@ -750,7 +750,7 @@ static int iotx_mc_read_packet(iotx_mc_client_t *c, iotx_time_t *timer, unsigned
     len = 1;
 
     /* 2. read the remaining length.  This is variable in itself */
-    if ((rc = iotx_mc_decode_packet(c, &rem_len, iotx_time_left(timer))) < 0) {
+    if ((rc = iotx_mc_decode_packet(c, &rem_len, iotx_time_left(timer) + c->request_timeout_ms)) < 0) {
         log_err("decodePacket error,rc = %d", rc);
         return rc;
     }
@@ -762,7 +762,7 @@ static int iotx_mc_read_packet(iotx_mc_client_t *c, iotx_time_t *timer, unsigned
     if ((rem_len > 0) && ((rem_len + len) > c->buf_size_read)) {
         log_err("mqtt read buffer is too short, mqttReadBufLen : %u, remainDataLen : %d", c->buf_size_read, rem_len);
         int needReadLen = c->buf_size_read - len;
-        if (c->ipstack->read(c->ipstack, c->buf_read + len, needReadLen, iotx_time_left(timer)) != needReadLen) {
+        if (c->ipstack->read(c->ipstack, c->buf_read + len, needReadLen, iotx_time_left(timer) + c->request_timeout_ms) != needReadLen) {
             log_err("mqtt read error");
             return FAIL_RETURN;
         }
@@ -775,7 +775,7 @@ static int iotx_mc_read_packet(iotx_mc_client_t *c, iotx_time_t *timer, unsigned
             return FAIL_RETURN;
         }
 
-        if (c->ipstack->read(c->ipstack, remainDataBuf, remainDataLen, iotx_time_left(timer)) != remainDataLen) {
+        if (c->ipstack->read(c->ipstack, remainDataBuf, remainDataLen, iotx_time_left(timer) + c->request_timeout_ms) != remainDataLen) {
             log_err("mqtt read error");
             LITE_free(remainDataBuf);
             remainDataBuf = NULL;
@@ -799,7 +799,7 @@ static int iotx_mc_read_packet(iotx_mc_client_t *c, iotx_time_t *timer, unsigned
     }
 
     /* 3. read the rest of the buffer using a callback to supply the rest of the data */
-    if (rem_len > 0 && (c->ipstack->read(c->ipstack, c->buf_read + len, rem_len, iotx_time_left(timer)) != rem_len)) {
+    if (rem_len > 0 && (c->ipstack->read(c->ipstack, c->buf_read + len, rem_len, iotx_time_left(timer) + c->request_timeout_ms) != rem_len)) {
         log_err("mqtt read error");
         return FAIL_RETURN;
     }
@@ -2402,6 +2402,14 @@ int IOT_MQTT_Yield(void *handle, int timeout_ms)
     utils_time_countdown_ms(&time, timeout_ms);
 
     do {
+        if (SUCCESS_RETURN != rc) {
+            unsigned int left_t = iotx_time_left(&time);
+            log_info("error occur ");
+            if (left_t < 20)
+                HAL_SleepMs(left_t);
+            else
+                HAL_SleepMs(20);
+        }
 
         /* Keep MQTT alive or reconnect if connection abort */
         iotx_mc_keepalive(pClient);
@@ -2416,7 +2424,7 @@ int IOT_MQTT_Yield(void *handle, int timeout_ms)
             MQTTSubInfoProc(pClient);
         }
 
-    } while (!utils_time_is_expired(&time) && (SUCCESS_RETURN == rc));
+    } while (!utils_time_is_expired(&time));
 
     return 0;
 }

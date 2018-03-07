@@ -14,6 +14,7 @@ SWITCH_VARS := \
     FEATURE_MQTT_ID2_CRYPTO \
     FEATURE_MQTT_ID2_ENV \
     FEATURE_HTTP_COMM_ENABLED \
+    FEATURE_SUBDEVICE_ENABLED \
 
 $(foreach v, \
     $(SWITCH_VARS), \
@@ -22,6 +23,9 @@ $(foreach v, \
 )
 
 ifeq (y,$(strip $(FEATURE_OTA_ENABLED)))
+ifneq (n,$(strip $(FEATURE_MQTT_DIRECT_NOTLS)))
+$(error FEATURE_OTA_ENABLED = y requires FEATURE_MQTT_DIRECT_NOTLS = n!)
+endif
 ifeq (MQTT,$(strip $(FEATURE_OTA_SIGNAL_CHANNEL)))
 ifneq (y,$(strip $(FEATURE_MQTT_COMM_ENABLED)))
 $(error FEATURE_OTA_SIGNAL_CHANNEL = MQTT requires FEATURE_MQTT_COMM_ENABLED = y!)
@@ -42,6 +46,16 @@ endif # HTTP
 endif # COAP
 endif # MQTT
 endif # OTA Enabled
+
+ifeq (y,$(strip $(FEATURE_SUBDEVICE_ENABLED)))
+ifneq (y,$(strip $(FEATURE_MQTT_COMM_ENABLED)))
+$(error FEATURE_SUBDEVICE_ENABLED = y requires FEATURE_MQTT_COMM_ENABLED = y!)
+endif
+CFLAGS += -DSUBDEVICE_SUPPORT
+ifeq (gateway,$(strip $(FEATURE_SUBDEVICE_STATUS)))
+CFLAGS += -DGATEWAY_SUPPORT
+endif # FEATURE_SUBDEVICE_STATUS
+endif # FEATURE_SUBDEVICE_ENABLED
 
 include build-rules/settings.mk
 sinclude $(CONFIG_TPL)
